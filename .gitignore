@@ -1,0 +1,37 @@
+# Unity generated folders
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+
+# Memory captures
+[Mm]emoryCaptures/
+
+# Asset meta data should only be ignored when the assets are also ignored
+# [Aa]ssets/**/*.meta
+
+# Visual Studio / Rider
+.vs/
+.idea/
+
+# VS Code
+.vscode/
+
+# Visual Studio generated files
+*.csproj
+*.sln
+*.suo
+*.user
+*.userprefs
+*.pidb
+*.booproj
+
+# Unity generated solution files
+*.slnx
+
+# OS generated files
+.DS_Store
+Thumbs.db
