@@ -1,9 +1,19 @@
+using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class CharacterManager : MonoBehaviour
+public class CharacterManager : NetworkBehaviour
 {
-    private void Awake()
+    public CharacterController characterController;
+    protected virtual void Awake()
     {
-        DontDestroyOnLoad(this);
+        DontDestroyOnLoad(this); 
+
+        characterController = GetComponent<CharacterController>();
+    }
+
+    protected virtual void Update()
+    {
+        
     }
 }

@@ -61,7 +61,13 @@ PrefabInstance:
       addedObject: {fileID: 6157955385447012181}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 42adb0925ec2e834fa2e362e62c59801, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4116872368797256442}
+      addedObject: {fileID: -3033711262096882219}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 42adb0925ec2e834fa2e362e62c59801, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -30045827594639575}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 42adb0925ec2e834fa2e362e62c59801, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 690705478861754111}
   m_SourcePrefab: {fileID: 100100000, guid: 42adb0925ec2e834fa2e362e62c59801, type: 3}
 --- !u!1 &9164436069181772697 stripped
 GameObject:
@@ -80,7 +86,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 1240448295
+  GlobalObjectIdHash: 3685394443
   InScenePlacedSourceGlobalObjectIdHash: 0
   m_InScenePlacedDisabledByDefault: 0
   DeferredDespawnTick: 0
@@ -95,7 +101,7 @@ MonoBehaviour:
   AutoObjectParentSync: 1
   SyncOwnerTransformWhenParented: 1
   AllowOwnerToParent: 0
---- !u!114 &4116872368797256442
+--- !u!114 &-3033711262096882219
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -104,6 +110,48 @@ MonoBehaviour:
   m_GameObject: {fileID: 9164436069181772697}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ca052dae4129fc46addbf97e07d5997, type: 3}
+  m_Script: {fileID: 11500000, guid: 94711e2673267c44da3fe72f80b92bab, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CharacterManager
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerManager
+--- !u!114 &-30045827594639575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9164436069181772697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 821a7cb77b2f027439529f87e259181f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerLocomotionManager
+  verticalMovement: 0
+  horizontalMovement: 0
+  moveAmount: 0
+  walkingSpeed: 2
+  runningSpeed: 5
+--- !u!143 &690705478861754111
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9164436069181772697}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 1.8
+  m_Radius: 0.25
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0.9, z: 0}
