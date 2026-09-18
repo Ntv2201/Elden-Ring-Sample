@@ -67,7 +67,13 @@ PrefabInstance:
       addedObject: {fileID: -30045827594639575}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 42adb0925ec2e834fa2e362e62c59801, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 7322294796848510852}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 42adb0925ec2e834fa2e362e62c59801, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 690705478861754111}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 42adb0925ec2e834fa2e362e62c59801, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -1325249507250058460}
   m_SourcePrefab: {fileID: 100100000, guid: 42adb0925ec2e834fa2e362e62c59801, type: 3}
 --- !u!1 &9164436069181772697 stripped
 GameObject:
@@ -113,6 +119,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94711e2673267c44da3fe72f80b92bab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerManager
+  ShowTopMostFoldoutHeaderGroup: 1
+  characterController: {fileID: 0}
 --- !u!114 &-30045827594639575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,6 +138,18 @@ MonoBehaviour:
   moveAmount: 0
   walkingSpeed: 2
   runningSpeed: 5
+--- !u!114 &7322294796848510852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9164436069181772697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00e18a3f14d8a0b44afc932046b30dc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerNetworkManager
 --- !u!143 &690705478861754111
 CharacterController:
   m_ObjectHideFlags: 0
@@ -155,3 +175,23 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.9, z: 0}
+--- !u!114 &-1325249507250058460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9164436069181772697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6049b3e1ab0e0144a1411e894fadd25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterNetworkManager
+  ShowTopMostFoldoutHeaderGroup: 1
+  netWorkPosition:
+    UpdateTraits:
+      MinSecondsBetweenUpdates: 0
+      MaxSecondsBetweenUpdates: 0
+    m_InternalValue: {x: 0, y: 0, z: 0}
+  networkPositionVelocity: {x: 0, y: 0, z: 0}
+  netWorkPositionSmoothTime: 0.1

@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel;
 using System.Security;
+using System.Text;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -67,6 +68,22 @@ public class PlayerInputManager : MonoBehaviour
     private void OnDestroy()
     {
         SceneManager.activeSceneChanged -= OnSceneChange;
+    }
+
+    // if window is minimized or lowered, stop adjusting inputs
+    private void OnApplicationFocus(bool focus)
+    {
+        if (enabled)
+        {
+            if (focus)
+            {
+                playerControls.Enable();
+            }
+            else
+            {
+                playerControls.Disable();
+            }
+        }
     }
 
     private void Update()

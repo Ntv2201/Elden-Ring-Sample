@@ -1405,6 +1405,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1487903877355026161, guid: c264c28b4a985a74bb512be75bf92f02, type: 3}
+      propertyPath: startGameAsClient
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6406361529953013507, guid: c264c28b4a985a74bb512be75bf92f02, type: 3}
       propertyPath: m_Name
       value: Player UI Manager

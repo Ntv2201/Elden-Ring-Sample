@@ -14,6 +14,9 @@ public class PlayerManager : CharacterManager
     protected override void Update()
     {
         base.Update();
+
+        // if we dont own this object, we dont control it
+        if(!IsOwner) return;
         
         // Handle movement
         playerLocomotionManager.HandleAllMovement();
