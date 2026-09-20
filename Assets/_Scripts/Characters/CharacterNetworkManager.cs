@@ -1,4 +1,5 @@
 using Unity.Netcode;
+using Unity.Netcode.Components;
 using UnityEngine;
 
 public class CharacterNetworkManager : NetworkBehaviour
@@ -10,5 +11,10 @@ public class CharacterNetworkManager : NetworkBehaviour
     public Vector3 networkPositionVelocity;
     public float netWorkPositionSmoothTime = 0.1f;
     public float netWorkRotationSmoothTime = 0.1f;
+
+    [Header("Animator")]
+    public NetworkVariable<float> horizontalMovement = new NetworkVariable<float>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    public NetworkVariable<float> verticalMovement = new NetworkVariable<float>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    public NetworkVariable<float> moveAmount = new NetworkVariable<float>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
 }

@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class PlayerInputManager : MonoBehaviour
 {
     public static PlayerInputManager instance;
+    public PlayerManager player;
 
     [Header("Player Movement Input")]
     [SerializeField] private Vector2 movementInput;
@@ -117,6 +118,14 @@ public class PlayerInputManager : MonoBehaviour
         {
             moveAmount = 1;
         }
+
+        if(player == null) return;
+
+        // why 0 on the horizontal? cuz we only want non-strafe movement
+        // if not locked on, only use move amount
+        player.playerAnimatorManager.UpdateAnimatorMovementParameters(0, moveAmount);
+        // if locked on, pass the horizontal as well
+
     }
 
     private void HandleCameraMovementInput()

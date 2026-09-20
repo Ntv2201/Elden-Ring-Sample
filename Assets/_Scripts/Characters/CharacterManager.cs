@@ -5,7 +5,8 @@ using UnityEngine;
 public class CharacterManager : NetworkBehaviour
 {
     public CharacterController characterController;
-    CharacterNetworkManager characterNetworkManager;
+    [HideInInspector] public Animator animator;
+    [HideInInspector] public CharacterNetworkManager characterNetworkManager;
     
     protected virtual void Awake()
     {
@@ -13,6 +14,7 @@ public class CharacterManager : NetworkBehaviour
 
         characterController = GetComponent<CharacterController>();
         characterNetworkManager = GetComponent<CharacterNetworkManager>();
+        animator =  GetComponent<Animator>();
     }
 
     protected virtual void Update()
