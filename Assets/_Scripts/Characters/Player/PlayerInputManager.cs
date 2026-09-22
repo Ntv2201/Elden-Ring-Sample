@@ -2,13 +2,17 @@ using System;
 using System.ComponentModel;
 using System.Security;
 using System.Text;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PlayerInputManager : MonoBehaviour
 {
-    public static PlayerInputManager instance;
-    public PlayerManager player;
+    [Header("Camera movement input")]
+    [SerializeField] private Vector2 cameraInput;
+    public float cameraVerticalInput;
+    public float cameraHorizontalInput;
+    PlayerControls playerControls;
 
     [Header("Player Movement Input")]
     [SerializeField] private Vector2 movementInput;
@@ -16,11 +20,13 @@ public class PlayerInputManager : MonoBehaviour
     public float horizontalInput;
     public float moveAmount;
 
-    [Header("Camera movement input")]
-    [SerializeField] private Vector2 cameraInput;
-    public float cameraVerticalInput;
-    public float cameraHorizontalInput;
-    PlayerControls playerControls;
+    [Header("Player Actions Input")]
+    [SerializeField] bool dodgeInput = false;   
+
+
+
+    public static PlayerInputManager instance;
+    public PlayerManager player;
 
     private void Awake()
     {
@@ -69,6 +75,7 @@ public class PlayerInputManager : MonoBehaviour
 
             playerControls.PlayerMovement.Movement.performed += i => movementInput = i.ReadValue<Vector2>();
             playerControls.PlayerCamera.Movement.performed += i => cameraInput = i.ReadValue<Vector2>();
+            playerControls.PlayerActions.Dodge.performed += i => dodgeInput = true;
 
         }
         playerControls.Enable();
@@ -97,10 +104,17 @@ public class PlayerInputManager : MonoBehaviour
 
     private void Update()
     {
-        HandlePlayerMovementInput();
-        HandleCameraMovementInput();
+        HandleAllInput();
     }
 
+    private void HandleAllInput()
+    {
+        HandlePlayerMovementInput();
+        HandleCameraMovementInput();
+        HandleDodgeInput();
+    }
+
+    // MOVEMENT
     private void HandlePlayerMovementInput()
     {
         verticalInput = movementInput.y;
@@ -134,4 +148,14 @@ public class PlayerInputManager : MonoBehaviour
         cameraVerticalInput = cameraInput.y;
     }
 
+    // ACTIONS
+    private void HandleDodgeInput()
+    {
+        if (dodgeInput)
+        {
+            dodgeInput = false;
+
+            player.playerLocomotionManager.AttemptToPerformedDodge();
+        }
+    }
 }

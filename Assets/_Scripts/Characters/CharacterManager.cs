@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class CharacterManager : NetworkBehaviour
 {
-    public CharacterController characterController;
+    [HideInInspector] public CharacterController characterController;
     [HideInInspector] public Animator animator;
     [HideInInspector] public CharacterNetworkManager characterNetworkManager;
+
+    [Header("Flags")]
+    public bool isPerforminAction = false;
     
     protected virtual void Awake()
     {

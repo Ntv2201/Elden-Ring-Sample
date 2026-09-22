@@ -1,3 +1,5 @@
+using System.Security;
+using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Scripting.APIUpdating;
@@ -5,15 +7,19 @@ using UnityEngine.Scripting.APIUpdating;
 public class PlayerLocomotionManager : CharacterLocomotionManager
 {
     PlayerManager player;
-    public float verticalMovement;
-    public float horizontalMovement;
-    public float moveAmount;
+    [HideInInspector] public float verticalMovement;
+    [HideInInspector] public float horizontalMovement;
+    [HideInInspector] public float moveAmount;
+
+    [Header("Movement Settings")]
     private Vector3 moveDirection;
     private Vector3 targetRotationDirection;
-
     [SerializeField] private float walkingSpeed = 2f;
     [SerializeField] private float runningSpeed = 5f;
     [SerializeField] private float rotationSpeed = 15f;
+
+    [Header("Dodge")]
+    private Vector3 rollDirection;
 
 
     protected override void Awake()
@@ -52,7 +58,7 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
         HandleRotation();
     }
 
-    private void GetVerticalAndHorizontalInputs()
+    private void GetMovementValues()
     {
         verticalMovement = PlayerInputManager.instance.verticalInput;
         horizontalMovement = PlayerInputManager.instance.horizontalInput;
@@ -64,7 +70,7 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
 
     private void HandleGroundedMovement()
     {
-        GetVerticalAndHorizontalInputs();
+        GetMovementValues();
         // move direction is based on camera perspective & and our movement input
         moveDirection = PlayerCamera.instance.transform.forward * verticalMovement;
         moveDirection = moveDirection + PlayerCamera.instance.transform.right * horizontalMovement;
@@ -99,5 +105,31 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
         Quaternion newRotation = Quaternion.LookRotation(targetRotationDirection);
         Quaternion targetRotation = Quaternion.Slerp(transform.rotation, newRotation, rotationSpeed * Time.deltaTime);
         transform.rotation = targetRotation;
+    }
+
+    public void AttemptToPerformedDodge()
+    {
+        // if(player.isPerforminAction) return;
+
+        // if we're moving while attempting a dodge
+        if(moveAmount > 0)
+        {
+            rollDirection = PlayerCamera.instance.cameraObject.transform.forward * PlayerInputManager.instance.verticalInput;
+            rollDirection += PlayerCamera.instance.cameraObject.transform.right * PlayerInputManager.instance.horizontalInput;
+            rollDirection.y = 0;
+            rollDirection.Normalize();
+
+            Quaternion playerRotation = Quaternion.LookRotation(rollDirection);
+            player.transform.rotation = playerRotation;
+
+            player.playerAnimatorManager.PlayerTargetActionAnimation("roll_forward", true, true);
+
+            // perform a roll
+        }
+        else
+        {
+            // perform a backstep
+
+        }
     }
 }
