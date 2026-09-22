@@ -70,6 +70,8 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
 
     private void HandleGroundedMovement()
     {
+        if(!player.canMove) return;
+        
         GetMovementValues();
         // move direction is based on camera perspective & and our movement input
         moveDirection = PlayerCamera.instance.transform.forward * verticalMovement;
@@ -91,6 +93,7 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
 
     private void HandleRotation()
     {
+        if(!player.canRotate) return;
         targetRotationDirection = Vector3.zero;
         targetRotationDirection = PlayerCamera.instance.cameraObject.transform.forward * verticalMovement;
         targetRotationDirection = targetRotationDirection + PlayerCamera.instance.cameraObject.transform.right * horizontalMovement;
@@ -109,13 +112,14 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
 
     public void AttemptToPerformedDodge()
     {
-        // if(player.isPerforminAction) return;
+        if(player.isPerformingAction) return;
 
         // if we're moving while attempting a dodge
-        if(moveAmount > 0)
+        if(PlayerInputManager.instance.moveAmount > 0)
         {
             rollDirection = PlayerCamera.instance.cameraObject.transform.forward * PlayerInputManager.instance.verticalInput;
             rollDirection += PlayerCamera.instance.cameraObject.transform.right * PlayerInputManager.instance.horizontalInput;
+            
             rollDirection.y = 0;
             rollDirection.Normalize();
 
