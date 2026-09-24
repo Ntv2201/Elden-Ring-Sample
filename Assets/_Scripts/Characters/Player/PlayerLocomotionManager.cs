@@ -133,7 +133,7 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
         else
         {
             // perform a backstep
-
+            player.playerAnimatorManager.PlayerTargetActionAnimation("back_step", true, true);
         }
     }
 }

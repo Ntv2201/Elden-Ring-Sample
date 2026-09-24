@@ -1,3 +1,4 @@
+using Unity.Netcode;
 using UnityEngine;
 
 public class CharacterAnimatorManager : MonoBehaviour
@@ -22,12 +23,12 @@ public class CharacterAnimatorManager : MonoBehaviour
 
     public virtual void PlayerTargetActionAnimation(
         string targetAnimation, 
-        bool isPerformingAction,
-        bool applyRootMotion = true,
+        bool isPerformingAction = false,
+        bool applyRootMotion = false,
         bool canRotate = false, 
         bool canMove = false)
     {
-        character.animator.applyRootMotion = applyRootMotion;
+        character.applyRootMotion = applyRootMotion;
         character.animator.CrossFade(targetAnimation, .2f);
 
 
@@ -38,6 +39,8 @@ public class CharacterAnimatorManager : MonoBehaviour
         character.isPerformingAction = isPerformingAction;
         character.canRotate = canRotate;
         character.canMove = canMove;
-        
+
+        // tell the server/host we played an animation and play that animation for everyone else present
+        character.characterNetworkManager.NotifyTheServerOfActionAnimationServerRpc(NetworkManager.Singleton.LocalClientId, targetAnimation, applyRootMotion);
     }
 }
