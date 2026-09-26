@@ -22,6 +22,7 @@ public class PlayerInputManager : MonoBehaviour
 
     [Header("Player Actions Input")]
     [SerializeField] bool dodgeInput = false;   
+    [SerializeField] bool sprintInput = false;   
 
 
 
@@ -76,6 +77,12 @@ public class PlayerInputManager : MonoBehaviour
             playerControls.PlayerMovement.Movement.performed += i => movementInput = i.ReadValue<Vector2>();
             playerControls.PlayerCamera.Movement.performed += i => cameraInput = i.ReadValue<Vector2>();
             playerControls.PlayerActions.Dodge.performed += i => dodgeInput = true;
+
+            // Holding the input, set the bool to true
+            playerControls.PlayerActions.Sprint.performed += i => sprintInput = true;
+
+            // release the button, set the bool to fals e
+            playerControls.PlayerActions.Sprint.performed += i => sprintInput = false;
 
         }
         playerControls.Enable();
@@ -158,4 +165,7 @@ public class PlayerInputManager : MonoBehaviour
             player.playerLocomotionManager.AttemptToPerformedDodge();
         }
     }
+
+
+
 }
