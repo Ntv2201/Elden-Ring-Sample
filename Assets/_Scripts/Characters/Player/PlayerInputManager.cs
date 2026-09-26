@@ -25,7 +25,6 @@ public class PlayerInputManager : MonoBehaviour
     [SerializeField] bool sprintInput = false;   
 
 
-
     public static PlayerInputManager instance;
     public PlayerManager player;
 
@@ -78,11 +77,11 @@ public class PlayerInputManager : MonoBehaviour
             playerControls.PlayerCamera.Movement.performed += i => cameraInput = i.ReadValue<Vector2>();
             playerControls.PlayerActions.Dodge.performed += i => dodgeInput = true;
 
-            // Holding the input, set the bool to true
+            // Holding the input, sets the bool to true
             playerControls.PlayerActions.Sprint.performed += i => sprintInput = true;
 
-            // release the button, set the bool to fals e
-            playerControls.PlayerActions.Sprint.performed += i => sprintInput = false;
+            // release the button, sets the bool to false
+            playerControls.PlayerActions.Sprint.canceled += i => sprintInput = false;
 
         }
         playerControls.Enable();
@@ -111,14 +110,15 @@ public class PlayerInputManager : MonoBehaviour
 
     private void Update()
     {
-        HandleAllInput();
+        HandleAllInputs();
     }
 
-    private void HandleAllInput()
+    private void HandleAllInputs()
     {
         HandlePlayerMovementInput();
         HandleCameraMovementInput();
         HandleDodgeInput();
+        HandleSprinting();
     }
 
     // MOVEMENT
@@ -144,7 +144,7 @@ public class PlayerInputManager : MonoBehaviour
 
         // why 0 on the horizontal? cuz we only want non-strafe movement
         // if not locked on, only use move amount
-        player.playerAnimatorManager.UpdateAnimatorMovementParameters(0, moveAmount);
+        player.playerAnimatorManager.UpdateAnimatorMovementParameters(0, moveAmount, player.playerNetworkManager.isSprinting.Value);
         // if locked on, pass the horizontal as well
 
     }
@@ -166,6 +166,17 @@ public class PlayerInputManager : MonoBehaviour
         }
     }
 
-
+    private void HandleSprinting()
+    {
+        if (sprintInput)
+        {
+            // Handle Sprint
+            player.playerLocomotionManager.HandleSprinting();
+        }
+        else
+        {
+            player.playerNetworkManager.isSprinting.Value = false;
+        }
+    }
 
 }

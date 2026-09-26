@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerNetworkManager : MonoBehaviour
+public class PlayerNetworkManager : CharacterNetworkManager
 {
     
 }

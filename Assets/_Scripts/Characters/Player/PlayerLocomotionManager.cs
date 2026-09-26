@@ -16,6 +16,7 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
     private Vector3 targetRotationDirection;
     [SerializeField] private float walkingSpeed = 2f;
     [SerializeField] private float runningSpeed = 5f;
+    [SerializeField] private float sprintingSpeed = 7f;
     [SerializeField] private float rotationSpeed = 15f;
 
     [Header("Dodge")]
@@ -46,7 +47,7 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
             moveAmount = player.characterNetworkManager.moveAmount.Value;
 
             //if not locked on, pass move amount
-            player.playerAnimatorManager.UpdateAnimatorMovementParameters(0, moveAmount);
+            player.playerAnimatorManager.UpdateAnimatorMovementParameters(0, moveAmount, player.playerNetworkManager.isSprinting.Value);
 
             // if locked on, pass both
         }
@@ -79,16 +80,25 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
         moveDirection.Normalize();
         moveDirection.y = 0;
 
-        if(PlayerInputManager.instance.moveAmount > 0.5f)
+        if (player.playerNetworkManager.isSprinting.Value)
         {
-            // move at a running speed
-            player.characterController.Move(moveDirection * runningSpeed * Time.deltaTime);
+            player.characterController.Move(moveDirection * sprintingSpeed * Time.deltaTime);
         }
-        else if(PlayerInputManager.instance.moveAmount <= 0.5f)
+        else
         {
-            // move at a walking speed
-            player.characterController.Move(moveDirection * walkingSpeed * Time.deltaTime);
+            if(PlayerInputManager.instance.moveAmount > 0.5f)
+            {
+                // move at a running speed
+                player.characterController.Move(moveDirection * runningSpeed * Time.deltaTime);
+            }
+            else if(PlayerInputManager.instance.moveAmount <= 0.5f)
+            {
+                // move at a walking speed
+                player.characterController.Move(moveDirection * walkingSpeed * Time.deltaTime);
+            }
         }
+
+        
     }
 
     private void HandleRotation()
@@ -136,4 +146,32 @@ public class PlayerLocomotionManager : CharacterLocomotionManager
             player.playerAnimatorManager.PlayerTargetActionAnimation("back_step", true, true);
         }
     }
+
+    public void HandleSprinting()
+    {
+        if (player.isPerformingAction)
+        {
+            // set sprint to false
+            player.playerNetworkManager.isSprinting.Value = false;
+        }
+
+        // if we're out of stamina, set sprint to false
+
+        // if we're moving, sprint is true
+        if(moveAmount >= .5f)
+        {
+            player.playerNetworkManager.isSprinting.Value = true;
+        }
+
+        // if not, sprint is false
+        else
+        {
+            player.playerNetworkManager.isSprinting.Value = false;
+        }
+
+        // if we're moving set sprint to true
+
+        //if we stationary set sprint to false
+    }
+
 }

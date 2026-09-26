@@ -1,6 +1,7 @@
 using System;
 using Unity.Netcode;
 using Unity.Netcode.Components;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CharacterNetworkManager : NetworkBehaviour
@@ -19,6 +20,9 @@ public class CharacterNetworkManager : NetworkBehaviour
     public NetworkVariable<float> horizontalMovement = new NetworkVariable<float>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     public NetworkVariable<float> verticalMovement = new NetworkVariable<float>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     public NetworkVariable<float> moveAmount = new NetworkVariable<float>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+
+    [Header("Flags")]
+    public NetworkVariable<bool> isSprinting = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
     protected virtual void Awake()
     {
